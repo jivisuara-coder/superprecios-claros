@@ -19,7 +19,30 @@ app.get("/v1/health", (req, res) => {
     service: "superprecios-claros"
   });
 });
+app.get("/v1/buscar", (req, res) => {
+  const q = (req.query.q || "").toLowerCase().trim();
 
+  if (!q) {
+    return res.status(400).json({
+      error: "Debes enviar un término de búsqueda usando ?q="
+    });
+  }
+
+  const resultados = productos.productos
+    .filter((p) =>
+      p.nombre.toLowerCase().includes(q) ||
+      p.marca.toLowerCase().includes(q) ||
+      p.supermercado.toLowerCase().includes(q)
+    )
+    .sort((a, b) => a.precio - b.precio);
+
+  res.json({
+    busqueda: q,
+    cantidad: resultados.length,
+    resultados,
+    mas_barato: resultados[0] || null
+  });
+});
 app.get("/v1/productos", (req, res) => {
   res.json(productos);
 });
