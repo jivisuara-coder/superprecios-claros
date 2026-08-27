@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superprecios Claros</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #176b3a;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 35px auto;
+      padding: 20px;
+    }
+
+    .buscador {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    input {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      background: #176b3a;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #12552e;
+    }
+
+    #estado {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .resumen {
+      margin-top: 25px;
+      padding: 20px;
+      background: #e8f5ec;
+      border-radius: 12px;
+    }
+
+    .producto {
+      background: white;
+      padding: 18px;
+      margin-top: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .producto h3 {
+      margin-top: 0;
+    }
+
+    .precio {
+      font-size: 22px;
+      font-weight: bold;
+      color: #176b3a;
+    }
+
+    .mejor {
+      border: 2px solid #176b3a;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🛒 Superprecios Claros</h1>
+  <p>Compará precios y encontrá dónde comprar más barato</p>
+</header>
+
+<main>
+
+  <div class="buscador">
+    <input
+      id="busqueda"
+      type="text"
+      placeholder="Ejemplo: leche, yerba, arroz..."
+    >
+    <button onclick="buscarProducto()">Buscar</button>
+  </div>
+
+  <div id="estado"></div>
+  <div id="resultados"></div>
+
+</main>
+
+<script>
+  async function buscarProducto() {
+
+    const q = document.getElementById("busqueda").value.trim();
+    const estado = document.getElementById("estado");
+    const contenedor = document.getElementById("resultados");
+
+    if (!q) {
+      estado.innerHTML = "Ingresá un producto para buscar.";
+      contenedor.innerHTML = "";
+      return;
+    }
+
+    estado.innerHTML = "Buscando precios...";
+    contenedor.innerHTML = "";
+
+    try {
+
+      const respuesta = await fetch(
+        "/v1/buscar?q=" + encodeURIComponent(q)
+      );
+
+      const datos = await respuesta.json();
+
+      if (!datos.resultados || datos.resultados.length === 0) {
+        estado.innerHTML = "No encontramos ese producto.";
+        return;
+      }
+
+      estado.innerHTML =
+        "Encontramos " + datos.cantidad + " precios.";
+
+      let html = `
+        <div class="resumen">
+          <strong>💰 Mejor precio:</strong>
+          $${datos.mas_barato.precio}<br><br>
+          <strong>🏪 Supermercado:</strong>
+          ${datos.mas_barato.supermercado}<br><br>
+          <strong>💵 Ahorro:</strong>
+          $${datos.ahorro} (${datos.porcentaje_ahorro}%)
+        </div>
+      `;
+
+      datos.resultados.forEach(producto => {
+
+        const esMejor =
+          producto.precio === datos.mas_barato.precio;
+
+        html += `
+          <div class="producto ${esMejor ? "mejor" : ""}">
+            <h3>${producto.nombre}</h3>
+            <p>${producto.marca}</p>
+            <p>🏪 ${producto.supermercado}</p>
+            <div class="precio">$${producto.precio}</div>
+            ${esMejor ? "<strong>✓ Mejor precio</strong>" : ""}
+          </div>
+        `;
+      });
+
+      contenedor.innerHTML = html;
+
+    } catch (error) {
+
+      estado.innerHTML =
+        "No pudimos consultar los precios. Intentá nuevamente.";
+
+      console.error(error);
+    }
+  }
+
+  document
+    .getElementById("busqueda")
+    .addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        buscarProducto();
+      }
+    });
+</script>
+
+</body>
+</html>
