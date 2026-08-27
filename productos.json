@@ -16,10 +16,73 @@
     },
     {
       "id": 3,
-      "nombre": "Arroz 1kg",
+      "nombre": "Arroz 1 kg",
       "marca": "Gallo",
       "supermercado": "Supermercado A",
       "precio": 2100
+    },
+    {
+      "id": 4,
+      "nombre": "Arroz 1 kg",
+      "marca": "Gallo",
+      "supermercado": "Supermercado B",
+      "precio": 1950
+    },
+    {
+      "id": 5,
+      "nombre": "Fideos spaghetti 500 g",
+      "marca": "Matarazzo",
+      "supermercado": "Supermercado A",
+      "precio": 1450
+    },
+    {
+      "id": 6,
+      "nombre": "Fideos spaghetti 500 g",
+      "marca": "Matarazzo",
+      "supermercado": "Supermercado B",
+      "precio": 1320
+    },
+    {
+      "id": 7,
+      "nombre": "Aceite de girasol 1.5L",
+      "marca": "Natura",
+      "supermercado": "Supermercado A",
+      "precio": 3900
+    },
+    {
+      "id": 8,
+      "nombre": "Aceite de girasol 1.5L",
+      "marca": "Natura",
+      "supermercado": "Supermercado B",
+      "precio": 3650
+    },
+    {
+      "id": 9,
+      "nombre": "Yerba mate 1 kg",
+      "marca": "Playadito",
+      "supermercado": "Supermercado A",
+      "precio": 5200
+    },
+    {
+      "id": 10,
+      "nombre": "Yerba mate 1 kg",
+      "marca": "Playadito",
+      "supermercado": "Supermercado B",
+      "precio": 4850
+    },
+    {
+      "id": 11,
+      "nombre": "Azúcar 1 kg",
+      "marca": "Ledesma",
+      "supermercado": "Supermercado A",
+      "precio": 1250
+    },
+    {
+      "id": 12,
+      "nombre": "Azúcar 1 kg",
+      "marca": "Ledesma",
+      "supermercado": "Supermercado B",
+      "precio": 1150
     }
   ]
 }
