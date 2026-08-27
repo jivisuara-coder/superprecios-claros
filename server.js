@@ -35,12 +35,25 @@ app.get("/v1/buscar", (req, res) => {
       p.supermercado.toLowerCase().includes(q)
     )
     .sort((a, b) => a.precio - b.precio);
+const masBarato = resultados[0] || null;
+const masCaro = resultados.length > 1 ? resultados[resultados.length - 1] : null;
+
+const ahorro = masBarato && masCaro
+  ? masCaro.precio - masBarato.precio
+  : 0;
+
+const porcentajeAhorro = masBarato && masCaro && masCaro.precio > 0
+  ? Number(((ahorro / masCaro.precio) * 100).toFixed(1))
+  : 0;
+  
 
   res.json({
     busqueda: q,
     cantidad: resultados.length,
     resultados,
-    mas_barato: resultados[0] || null
+   mas_barato: masBarato,
+ahorro: ahorro,
+porcentaje_ahorro: porcentajeAhorro 
   });
 });
 app.get("/v1/productos", (req, res) => {
