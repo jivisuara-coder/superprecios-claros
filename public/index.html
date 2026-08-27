@@ -216,6 +216,60 @@
         buscarProducto();
       }
     });
+
+  const carrito = [];
+
+function agregarAlCarrito(producto) {
+  carrito.push(producto);
+
+  const lista = document.getElementById("lista-carrito");
+  const resumen = document.getElementById("resumen-carrito");
+
+  lista.innerHTML = carrito.map((item, index) => `
+    <div class="producto">
+      <strong>${item.nombre}</strong><br>
+      ${item.marca}<br>
+      🏪 ${item.supermercado}<br>
+      $${item.precio}
+      <button onclick="quitarDelCarrito(${index})">Quitar</button>
+    </div>
+  `).join("");
+
+  const total = carrito.reduce((suma, item) => suma + item.precio, 0);
+
+  resumen.innerHTML = `
+    <h3>Total: $${total}</h3>
+  `;
+}
+
+function quitarDelCarrito(index) {
+  carrito.splice(index, 1);
+
+  const lista = document.getElementById("lista-carrito");
+  const resumen = document.getElementById("resumen-carrito");
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "<p>Todavía no agregaste productos.</p>";
+    resumen.innerHTML = "";
+    return;
+  }
+
+  lista.innerHTML = carrito.map((item, i) => `
+    <div class="producto">
+      <strong>${item.nombre}</strong><br>
+      ${item.marca}<br>
+      🏪 ${item.supermercado}<br>
+      $${item.precio}
+      <button onclick="quitarDelCarrito(${i})">Quitar</button>
+    </div>
+  `).join("");
+
+  const total = carrito.reduce((suma, item) => suma + item.precio, 0);
+
+  resumen.innerHTML = `
+    <h3>Total: $${total}</h3>
+  `;
+}
 </script>
 
 </body>
