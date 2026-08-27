@@ -1,0 +1,25 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Leche entera 1L",
+      "marca": "La Serenísima",
+      "supermercado": "Supermercado A",
+      "precio": 1850
+    },
+    {
+      "id": 2,
+      "nombre": "Leche entera 1L",
+      "marca": "La Serenísima",
+      "supermercado": "Supermercado B",
+      "precio": 1690
+    },
+    {
+      "id": 3,
+      "nombre": "Arroz 1kg",
+      "marca": "Gallo",
+      "supermercado": "Supermercado A",
+      "precio": 2100
+    }
+  ]
+}
