@@ -240,6 +240,7 @@ function agregarAlCarrito(producto) {
   resumen.innerHTML = `
     <h3>Total: $${total}</h3>
   `;
+  compararSupermercados();
 }
 
 function quitarDelCarrito(index) {
@@ -268,6 +269,45 @@ function quitarDelCarrito(index) {
 
   resumen.innerHTML = `
     <h3>Total: $${total}</h3>
+  `;
+  compararSupermercados();
+}
+
+  function compararSupermercados() {
+  if (carrito.length === 0) {
+    return;
+  }
+
+  const totales = {};
+
+  carrito.forEach(item => {
+    if (!totales[item.supermercado]) {
+      totales[item.supermercado] = 0;
+    }
+
+    totales[item.supermercado] += item.precio;
+  });
+
+  const supermercados = Object.entries(totales);
+
+  supermercados.sort((a, b) => a[1] - b[1]);
+
+  const mejor = supermercados[0];
+  const peor = supermercados[supermercados.length - 1];
+
+  const ahorro = peor[1] - mejor[1];
+
+  const resumen = document.getElementById("resumen-carrito");
+
+  resumen.innerHTML += `
+    <hr>
+    <h3>🏪 Comparación de supermercados</h3>
+    ${supermercados.map(([nombre, total]) =>
+      `<p>${nombre}: $${total}</p>`
+    ).join("")}
+
+    <p><strong>🏆 Conviene: ${mejor[0]}</strong></p>
+    <p><strong>💰 Diferencia: $${ahorro}</strong></p>
   `;
 }
 </script>
