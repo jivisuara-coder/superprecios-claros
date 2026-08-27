@@ -1,4 +1,5 @@
 const express = require("express");
+const productos = require("./productos.json");
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,10 @@ app.get("/v1/health", (req, res) => {
     status: "online",
     service: "superprecios-claros"
   });
+});
+
+app.get("/v1/productos", (req, res) => {
+  res.json(productos);
 });
 
 app.listen(PORT, "0.0.0.0", () => {
