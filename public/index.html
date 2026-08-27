@@ -192,6 +192,7 @@
             <p>🏪 ${producto.supermercado}</p>
             <div class="precio">$${producto.precio}</div>
             ${esMejor ? "<strong>✓ Mejor precio</strong>" : ""}
+            <button onclick='agregarAlCarrito(${JSON.stringify(producto)})'>🛒 Agregar a mi lista</button>
           </div>
         `;
       });
@@ -200,6 +201,7 @@
 
     } catch (error) {
 
+      
       estado.innerHTML =
         "No pudimos consultar los precios. Intentá nuevamente.";
 
