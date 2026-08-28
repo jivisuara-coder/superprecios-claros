@@ -160,6 +160,7 @@
       );
 
       const datos = await respuesta.json();
+      window.ultimosResultados = datos.resultados;
 
       if (!datos.resultados || datos.resultados.length === 0) {
         estado.innerHTML = "No encontramos ese producto.";
