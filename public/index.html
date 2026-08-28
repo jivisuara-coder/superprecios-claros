@@ -326,7 +326,7 @@ function quitarDelCarrito(index) {
     <p><strong>💰 Diferencia: $${ahorro}</strong></p>
   `;
 }
- function armarCompraMasBarata() {
+function armarCompraMasBarata() {
   const contenedor = document.getElementById("compra-optimizada");
 
   if (carrito.length === 0) {
@@ -337,9 +337,10 @@ function quitarDelCarrito(index) {
   let totalActual = 0;
   let totalOptimizado = 0;
   let html = "<h3>🧠 Compra más barata</h3>";
-   const grupos = {};
 
-  carrito.forEach(producto => {
+  const grupos = {};
+
+    carrito.forEach(producto => {
     totalActual += producto.precio;
 
     const alternativas = producto.alternativas || [producto];
@@ -349,35 +350,59 @@ function quitarDelCarrito(index) {
     );
 
     totalOptimizado += mejorOpcion.precio;
-    if (!grupos[mejorOpcion.supermercado]) {
-  grupos[mejorOpcion.supermercado] = [];
-}
 
-grupos[mejorOpcion.supermercado].push(mejorOpcion);
+    if (!grupos[mejorOpcion.supermercado]) {
+      grupos[mejorOpcion.supermercado] = [];
+    }
+
+    grupos[mejorOpcion.supermercado].push(mejorOpcion);
+  });
+
+    Object.entries(grupos).forEach(([supermercado, productos]) => {
+
+    const subtotal = productos.reduce(
+      (suma, producto) => suma + producto.precio,
+      0
+    );
 
     html += `
       <div class="producto">
-        <strong>${producto.nombre}</strong><br>
-        🏪 ${mejorOpcion.supermercado}<br>
-        💵 $${mejorOpcion.precio}
+        <h3>🏪 ${supermercado}</h3>
+
+        ${productos.map(producto => `
+          <p>
+            <strong>${producto.nombre}</strong><br>
+            ${producto.marca || ""}<br>
+            💵 $${producto.precio}
+          </p>
+        `).join("")}
+
+        <hr>
+        <strong>Subtotal: $${subtotal}</strong>
       </div>
     `;
   });
 
-  const ahorro = totalActual - totalOptimizado;
+    const ahorro = totalActual - totalOptimizado;
+
   const porcentaje = totalActual > 0
     ? ((ahorro / totalActual) * 100).toFixed(1)
     : 0;
 
+  const cantidadSupermercados = Object.keys(grupos).length;
+
   html += `
-    <hr>
-    <p><strong>Total actual: $${totalActual}</strong></p>
-    <p><strong>✅ Total optimizado: $${totalOptimizado}</strong></p>
-    <p><strong>💰 Ahorro: $${ahorro} (${porcentaje}%)</strong></p>
+    <div class="resumen">
+      <p><strong>🏪 Supermercados necesarios: ${cantidadSupermercados}</strong></p>
+      <p><strong>Total actual: $${totalActual}</strong></p>
+      <p><strong>✅ Total optimizado: $${totalOptimizado}</strong></p>
+      <p><strong>💰 Ahorro: $${ahorro} (${porcentaje}%)</strong></p>
+    </div>
   `;
 
   contenedor.innerHTML = html;
-} 
+}
+  
 </script>
 
 </body>
