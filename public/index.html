@@ -337,6 +337,7 @@ function quitarDelCarrito(index) {
   let totalActual = 0;
   let totalOptimizado = 0;
   let html = "<h3>🧠 Compra más barata</h3>";
+   const grupos = {};
 
   carrito.forEach(producto => {
     totalActual += producto.precio;
@@ -348,6 +349,11 @@ function quitarDelCarrito(index) {
     );
 
     totalOptimizado += mejorOpcion.precio;
+    if (!grupos[mejorOpcion.supermercado]) {
+  grupos[mejorOpcion.supermercado] = [];
+}
+
+grupos[mejorOpcion.supermercado].push(mejorOpcion);
 
     html += `
       <div class="producto">
