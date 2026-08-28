@@ -47,7 +47,41 @@ header p:last-child {
       margin: 35px auto;
       padding: 20px;
     }
+.como-funciona {
+  margin-bottom: 28px;
+  text-align: center;
+}
 
+.como-funciona h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  color: #14532d;
+}
+
+.como-funciona > p {
+  margin: 0 0 18px;
+  color: #64748b;
+}
+
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.pasos div {
+  background: white;
+  padding: 18px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+@media (max-width: 700px) {
+  .pasos {
+    grid-template-columns: 1fr;
+  }
+}
+    
     .buscador {
   display: flex;
   gap: 12px;
@@ -131,7 +165,16 @@ header p:last-child {
 </header>
 
 <main>
+<section class="como-funciona">
+  <h2>Ahorrá en toda tu compra</h2>
+  <p>Armá tu lista y encontrá la combinación de supermercados que más te conviene.</p>
 
+  <div class="pasos">
+    <div>🔎 <strong>1. Buscá</strong><br>Encontrá tus productos</div>
+    <div>🛒 <strong>2. Armá tu lista</strong><br>Agregá todo lo que necesitás</div>
+    <div>💰 <strong>3. Ahorrá</strong><br>Te mostramos dónde comprar más barato</div>
+  </div>
+</section>
   <div class="buscador">
     <input
       id="busqueda"
