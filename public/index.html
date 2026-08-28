@@ -233,6 +233,9 @@ if (yaExiste) {
 
 carrito.push(producto);
 
+  producto.alternativas = (window.ultimosResultados || []).filter(item =>
+  item.nombre === producto.nombre
+);
   const lista = document.getElementById("lista-carrito");
   const resumen = document.getElementById("resumen-carrito");
 
