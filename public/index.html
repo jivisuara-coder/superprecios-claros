@@ -133,6 +133,8 @@
     <p>Todavía no agregaste productos.</p>
   </div>
   <div id="resumen-carrito"></div>
+    <button onclick="armarCompraMasBarata()">🧠 Armar compra más barata</button>
+<div id="compra-optimizada"></div>
 </section>
 
 </main>
@@ -324,6 +326,52 @@ function quitarDelCarrito(index) {
     <p><strong>💰 Diferencia: $${ahorro}</strong></p>
   `;
 }
+ function armarCompraMasBarata() {
+  const contenedor = document.getElementById("compra-optimizada");
+
+  if (carrito.length === 0) {
+    contenedor.innerHTML = "<p>Agregá productos a tu lista primero.</p>";
+    return;
+  }
+
+  let totalActual = 0;
+  let totalOptimizado = 0;
+  let html = "<h3>🧠 Compra más barata</h3>";
+
+  carrito.forEach(producto => {
+    totalActual += producto.precio;
+
+    const alternativas = producto.alternativas || [producto];
+
+    const mejorOpcion = alternativas.reduce((mejor, actual) =>
+      actual.precio < mejor.precio ? actual : mejor
+    );
+
+    totalOptimizado += mejorOpcion.precio;
+
+    html += `
+      <div class="producto">
+        <strong>${producto.nombre}</strong><br>
+        🏪 ${mejorOpcion.supermercado}<br>
+        💵 $${mejorOpcion.precio}
+      </div>
+    `;
+  });
+
+  const ahorro = totalActual - totalOptimizado;
+  const porcentaje = totalActual > 0
+    ? ((ahorro / totalActual) * 100).toFixed(1)
+    : 0;
+
+  html += `
+    <hr>
+    <p><strong>Total actual: $${totalActual}</strong></p>
+    <p><strong>✅ Total optimizado: $${totalOptimizado}</strong></p>
+    <p><strong>💰 Ahorro: $${ahorro} (${porcentaje}%)</strong></p>
+  `;
+
+  contenedor.innerHTML = html;
+} 
 </script>
 
 </body>
