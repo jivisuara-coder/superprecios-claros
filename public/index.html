@@ -220,7 +220,17 @@
   const carrito = [];
 
 function agregarAlCarrito(producto) {
-  carrito.push(producto);
+  const yaExiste = carrito.some(item =>
+  item.nombre === producto.nombre &&
+  item.supermercado === producto.supermercado
+);
+
+if (yaExiste) {
+  alert("Este producto ya está en tu lista.");
+  return;
+}
+
+carrito.push(producto);
 
   const lista = document.getElementById("lista-carrito");
   const resumen = document.getElementById("resumen-carrito");
