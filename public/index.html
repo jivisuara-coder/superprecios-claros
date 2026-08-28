@@ -11,28 +11,37 @@
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
-
-    header {
-      background: #176b3a;
-      color: white;
-      padding: 28px 20px;
-      text-align: center;
-    }
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f8f6;
+  color: #1f2937;
+  line-height: 1.5;
+}
+   header {
+  background: linear-gradient(135deg, #14532d 0%, #176b3a 55%, #218c50 100%);
+  color: white;
+  padding: 42px 20px 38px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(20, 83, 45, 0.18);
+}
 
     header h1 {
-      margin: 0;
-      font-size: 32px;
-    }
+  margin: 0 0 8px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
 
     header p {
-      margin: 8px 0 0;
-    }
+  margin: 4px 0;
+  font-size: 16px;
+  opacity: 0.92;
+}
 
+header p:last-child {
+  font-size: 14px;
+  opacity: 0.78;
+}
     main {
       max-width: 850px;
       margin: 35px auto;
@@ -40,35 +49,42 @@
     }
 
     .buscador {
-      display: flex;
-      gap: 10px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
+  display: flex;
+  gap: 12px;
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
 
     input {
-      flex: 1;
-      padding: 14px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
+  flex: 1;
+  padding: 15px 16px;
+  font-size: 16px;
+  border: 1px solid #d8dee4;
+  border-radius: 10px;
+  background: #f9fbfa;
+  color: #1f2937;
+  outline: none;
+}
     button {
-      padding: 14px 24px;
-      border: none;
-      border-radius: 8px;
-      background: #176b3a;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #12552e;
-    }
+  padding: 15px 26px;
+  border: none;
+  border-radius: 10px;
+  background: #176b3a;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(23, 107, 58, 0.20);
+  transition: all 0.2s ease;
+}
+   button:hover {
+  background: #12552e;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(23, 107, 58, 0.28);
+}
 
     #estado {
       margin-top: 25px;
